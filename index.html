@@ -50,10 +50,9 @@
       }
       nav {
         margin-top: 18px;
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 8px;
-        justify-content: center;
       }
       nav a {
         color: #1d4ed8;
@@ -65,9 +64,11 @@
         background: #eff6ff;
         line-height: 1;
         min-height: 40px;
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: center;
         box-sizing: border-box;
+        text-align: center;
       }
       nav a:hover,
       nav a:focus {
@@ -161,6 +162,56 @@
         max-width: 760px;
         font-size: 16px;
       }
+      .busca {
+        margin: 20px auto 0;
+        max-width: 760px;
+        text-align: left;
+      }
+      .busca label {
+        display: block;
+        color: #0f172a;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .busca-linha {
+        display: flex;
+        gap: 8px;
+      }
+      .busca input {
+        width: 100%;
+        min-height: 44px;
+        box-sizing: border-box;
+        border: 1px solid #bfdbfe;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 15px;
+      }
+      .busca button {
+        min-height: 44px;
+        border: 1px solid #cbd5e1;
+        background: white;
+        color: #1d4ed8;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .busca button:hover,
+      .busca button:focus {
+        background: #eff6ff;
+      }
+      .busca-status {
+        margin: 8px 0 0;
+        color: #64748b;
+        font-size: 14px;
+      }
+      .oculto-busca {
+        display: none;
+      }
+      .destaque-busca {
+        border-color: #93c5fd;
+        box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.35);
+      }
       .modulo {
         border-left: 5px solid #1d4ed8;
       }
@@ -210,6 +261,7 @@
       }
       a:focus-visible,
       button:focus-visible,
+      input:focus-visible,
       summary:focus-visible,
       textarea:focus-visible {
         outline: 3px solid #93c5fd;
@@ -265,16 +317,18 @@
           font-size: 28px;
         }
         nav {
-          justify-content: flex-start;
-          align-items: stretch;
-          flex-wrap: nowrap;
-          overflow-x: auto;
-          padding-bottom: 8px;
-          scroll-snap-type: x proximity;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         nav a {
-          white-space: nowrap;
-          scroll-snap-align: start;
+          justify-content: center;
+          min-height: 44px;
+          padding: 10px 8px;
+        }
+        .busca-linha {
+          flex-direction: column;
+        }
+        .busca button {
+          width: 100%;
         }
         .bloco {
           padding: 14px;
@@ -300,6 +354,15 @@
           Apoio rápido para revisar os conceitos do curso, ver exemplos e executar simulações dos códigos principais direto nesta página.
           Seus arquivos Python continuam separados e intactos.
         </p>
+
+        <div class="busca" role="search">
+          <label for="busca-conteudo">Pesquisar na apostila</label>
+          <div class="busca-linha">
+            <input id="busca-conteudo" type="search" placeholder="Digite: listas, try, módulos, arquivos..." autocomplete="off" />
+            <button id="limpar-busca" type="button">Limpar</button>
+          </div>
+          <p class="busca-status" id="busca-status">Pesquise por assunto, palavra-chave ou nome de arquivo.</p>
+        </div>
 
         <nav aria-label="Indice da apostila">
           <a href="#como-usar">Como usar</a>
@@ -877,6 +940,78 @@ python tabuada.py</pre>
             output.textContent = demos[demo] || 'Exemplo sem saída cadastrada.';
           }
         });
+      });
+
+      const campoBusca = document.getElementById('busca-conteudo');
+      const limparBusca = document.getElementById('limpar-busca');
+      const buscaStatus = document.getElementById('busca-status');
+      const blocosBusca = Array.from(document.querySelectorAll('.bloco'));
+      const topicosBusca = Array.from(document.querySelectorAll('.topico'));
+      const elementosBusca = [...blocosBusca, ...topicosBusca];
+
+      function normalizarTexto(texto) {
+        return texto
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+      }
+
+      function aplicarBusca() {
+        const termoOriginal = campoBusca.value.trim();
+        const termo = normalizarTexto(termoOriginal);
+
+        elementosBusca.forEach((elemento) => {
+          elemento.classList.remove('oculto-busca', 'destaque-busca');
+        });
+
+        if (!termo) {
+          buscaStatus.textContent = 'Pesquise por assunto, palavra-chave ou nome de arquivo.';
+          return;
+        }
+
+        let resultados = 0;
+
+        blocosBusca.forEach((bloco) => {
+          const topicosDoBloco = Array.from(bloco.querySelectorAll('.topico'));
+          const blocoCombina = normalizarTexto(bloco.innerText).includes(termo);
+          let topicosVisiveis = 0;
+
+          topicosDoBloco.forEach((topico) => {
+            const topicoCombina = normalizarTexto(topico.innerText).includes(termo);
+            topico.classList.toggle('oculto-busca', !topicoCombina && !blocoCombina);
+
+            if (topicoCombina) {
+              topico.classList.add('destaque-busca');
+              topicosVisiveis += 1;
+              resultados += 1;
+            }
+          });
+
+          if (topicosDoBloco.length) {
+            bloco.classList.toggle('oculto-busca', topicosVisiveis === 0 && !blocoCombina);
+            if (topicosVisiveis === 0 && blocoCombina) {
+              bloco.classList.add('destaque-busca');
+              resultados += 1;
+            }
+          } else {
+            bloco.classList.toggle('oculto-busca', !blocoCombina);
+            if (blocoCombina) {
+              bloco.classList.add('destaque-busca');
+              resultados += 1;
+            }
+          }
+        });
+
+        buscaStatus.textContent = resultados
+          ? `${resultados} resultado(s) para "${termoOriginal}".`
+          : `Nenhum resultado para "${termoOriginal}".`;
+      }
+
+      campoBusca.addEventListener('input', aplicarBusca);
+      limparBusca.addEventListener('click', () => {
+        campoBusca.value = '';
+        campoBusca.focus();
+        aplicarBusca();
       });
 
       let pyodideReady = null;
