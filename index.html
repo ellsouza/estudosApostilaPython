@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apostila de Python - Ellen Souza</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        min-height: 100vh;
+      }
+      .pagina {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      .caixa {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        width: 900px;
+        max-width: 100%;
+      }
+      h1 {
+        color: #1d4ed8;
+        margin: 0 0 10px;
+      }
+      h2,
+      h3 {
+        color: #1d4ed8;
+      }
+      p {
+        color: #475569;
+      }
+      nav {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+      nav a {
+        color: #1d4ed8;
+        text-decoration: none;
+        font-weight: bold;
+        border: 1px solid #bfdbfe;
+        border-radius: 10px;
+        padding: 8px 10px;
+        background: #eff6ff;
+      }
+      .bloco {
+        margin-top: 18px;
+        padding: 14px;
+        background: #fafafa;
+        border: 1px solid #e5e5e5;
+        border-radius: 10px;
+        text-align: left;
+      }
+      .bloco h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      .bloco h3 {
+        margin: 16px 0 8px;
+        font-size: 14px;
+      }
+      ul,
+      ol {
+        color: #475569;
+      }
+      li {
+        margin: 6px 0;
+      }
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow: auto;
+        max-width: 100%;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .eq {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+      .arquivo {
+        margin: 10px 0 0;
+        color: #0f172a;
+        font-size: 13px;
+        font-weight: bold;
+      }
+      details {
+        margin-top: 10px;
+      }
+      summary {
+        cursor: pointer;
+        color: #1d4ed8;
+        font-weight: bold;
+      }
+      footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #475569;
+        font-size: 14px;
+      }
+      footer a {
+        color: #1d4ed8;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .subtitulo {
+        margin: 0 auto;
+        max-width: 760px;
+      }
+      .modulo {
+        border-left: 5px solid #1d4ed8;
+      }
+      .topico {
+        padding-top: 6px;
+        border-top: 1px solid #e5e7eb;
+      }
+      .topico:first-of-type {
+        border-top: 0;
+      }
+      .resumo {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .dica {
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .comando,
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        background: #e0f2fe;
+        color: #0f172a;
+        border-radius: 6px;
+        padding: 1px 5px;
+      }
+      .run {
+        margin: 10px 0;
+        border: 1px solid #1d4ed8;
+        background: #1d4ed8;
+        color: white;
+        border-radius: 10px;
+        padding: 8px 12px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .run:hover,
+      .run:focus {
+        background: #1e40af;
+      }
+      .saida {
+        min-height: 34px;
+        margin-top: 8px;
+        padding: 10px;
+        background: #0f172a;
+        color: #e5e7eb;
+        border-radius: 10px;
+      }
+      .grade {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .cartao {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px;
+        background: white;
+      }
+      textarea {
+        width: 100%;
+        min-height: 170px;
+        box-sizing: border-box;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 10px;
+        resize: vertical;
+      }
+      @media (max-width: 700px) {
+        .grade {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .pagina {
+          padding: 14px;
+        }
+        .caixa {
+          padding: 22px;
+        }
+        nav {
+          align-items: stretch;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pagina">
+      <main class="caixa">
+        <h1>Apostila de Python</h1>
+        <p class="subtitulo">
+          Apoio rápido para revisar os conceitos do curso, ver exemplos e executar simulações dos códigos principais direto nesta página.
+          Seus arquivos Python continuam separados e intactos.
+        </p>
+
+        <nav aria-label="Indice da apostila">
+          <a href="#como-usar">Como usar</a>
+          <a href="#modulo-1">Módulo 1</a>
+          <a href="#modulo-2">Módulo 2</a>
+          <a href="#laboratorio">Laboratório</a>
+          <a href="#python-real">Python real</a>
+          <a href="#rodar-arquivos">Rodar arquivos</a>
+          <a href="#cola">Cola rápida</a>
+          <a href="#arquivos">Arquivos do projeto</a>
+        </nav>
+
+        <section class="bloco" id="como-usar">
+          <h2>Como usar esta apostila</h2>
+          <p>
+            Use esta página como consulta: procure o assunto no índice, leia o resumo, observe o exemplo e clique em
+            <strong>Executar exemplo</strong> quando houver botão. Os botões não alteram seus arquivos; eles apenas mostram a saída esperada dos conceitos no navegador.
+          </p>
+          <div class="resumo">
+            <strong>Ideia principal:</strong> Python executa comandos de cima para baixo. Variáveis guardam dados, operadores calculam ou comparam, estruturas de controle decidem o fluxo, estruturas de dados organizam valores, funções reaproveitam código, exceções tratam erros, arquivos guardam dados fora do programa e módulos/pacotes organizam projetos.
+          </div>
+        </section>
+
+        <section class="bloco modulo" id="modulo-1">
+          <h2>Módulo 1</h2>
+          <p>Base da linguagem: instalação, primeiro programa, variáveis, operadores, estruturas de controle e estruturas de dados.</p>
+
+          <div class="topico" id="introducao">
+            <h3>Introdução ao Python</h3>
+            <p>
+              Python é uma linguagem de programação famosa por ter sintaxe simples. Ela é usada em automação, análise de dados, inteligência artificial, sites, APIs e scripts do dia a dia.
+            </p>
+            <ul>
+              <li><strong>Interpretada:</strong> o código é executado por um interpretador Python.</li>
+              <li><strong>Indentação:</strong> espaços no começo da linha definem blocos, como em <code>if</code>, <code>for</code> e funções.</li>
+              <li><strong>Case-sensitive:</strong> <code>idade</code> e <code>Idade</code> são nomes diferentes.</li>
+            </ul>
+          </div>
+
+          <div class="topico" id="instalacao">
+            <h3>1.1. Instalação e configuração</h3>
+            <p>
+              No terminal, você confirma se o Python está instalado com <code>python --version</code>. Em projetos com ambiente virtual, primeiro ativa a pasta <code>.venv</code>.
+            </p>
+            <pre class="eq"># PowerShell, dentro da pasta do projeto
+.\.venv\Scripts\Activate.ps1
+
+# Ver a versão instalada
+python --version
+
+# Instalar dependências do projeto
+pip install -r requirements.txt</pre>
+            <p class="dica">
+              Se o PowerShell só imprimir o caminho do activate, faltou usar <code>.\</code> antes do arquivo ou faltou chamar o script correto do PowerShell.
+            </p>
+          </div>
+
+          <div class="topico" id="primeiro-programa">
+            <h3>1.2. Seu primeiro programa Python</h3>
+            <p>
+              <code>print()</code> mostra algo na tela. Textos ficam entre aspas simples ou duplas.
+            </p>
+            <pre class="eq">print("Olá, mundo!")
+print("Estou aprendendo Python.")</pre>
+            <button class="run" type="button" data-demo="primeiro">Executar exemplo</button>
+            <pre class="saida eq" id="saida-primeiro"></pre>
+          </div>
+
+          <div class="topico" id="variaveis">
+            <h3>2.1. Variáveis</h3>
+            <p>
+              Variável é um nome que aponta para um valor guardado na memória. Use nomes claros, sem espaço, e de preferência em minúsculas com underline.
+            </p>
+            <div class="grade">
+              <div class="cartao">
+                <strong>int</strong>
+                <p>Número inteiro.</p>
+                <pre class="eq">idade = 25</pre>
+              </div>
+              <div class="cartao">
+                <strong>float</strong>
+                <p>Número decimal.</p>
+                <pre class="eq">preco = 9.99</pre>
+              </div>
+              <div class="cartao">
+                <strong>str</strong>
+                <p>Texto.</p>
+                <pre class="eq">nome = "Ellen"</pre>
+              </div>
+              <div class="cartao">
+                <strong>bool</strong>
+                <p>Verdadeiro ou falso.</p>
+                <pre class="eq">tem_desconto = True</pre>
+              </div>
+            </div>
+            <pre class="eq">nome = "Ellen"
+idade = 23
+altura = 1.65
+estudando_python = True
+
+print(nome, idade, altura, estudando_python)</pre>
+            <button class="run" type="button" data-demo="variaveis">Executar exemplo</button>
+            <pre class="saida eq" id="saida-variaveis"></pre>
+          </div>
+
+          <div class="topico" id="operadores">
+            <h3>2.2. Operadores</h3>
+            <p>
+              Operadores fazem contas, comparações e combinações lógicas. Eles aparecem muito em condições, loops e cálculos.
+            </p>
+            <pre class="eq">a = 6
+b = 3
+
+print(a + b)   # soma
+print(a - b)   # subtração
+print(a * b)   # multiplicação
+print(a / b)   # divisão
+print(a // b)  # divisão inteira
+print(a % b)   # resto da divisão
+print(a ** b)  # potência
+
+print(a &gt; b)              # comparação
+print((a &gt; 5) and (b &lt; 5)) # lógica</pre>
+            <button class="run" type="button" data-demo="operadores">Executar exemplo</button>
+            <pre class="saida eq" id="saida-operadores"></pre>
+          </div>
+
+          <div class="topico" id="controle">
+            <h3>3. Estruturas de controle</h3>
+            <p>
+              Estruturas de controle mudam o caminho do programa. <code>if</code> decide, <code>for</code> repete sobre uma sequência e <code>while</code> repete enquanto uma condição for verdadeira.
+            </p>
+            <pre class="eq">idade = 18
+if idade &gt;= 18:
+    print("Maior de idade")
+else:
+    print("Menor de idade")
+
+for numero in range(1, 4):
+    print(numero)
+
+contador = 1
+while contador &lt;= 3:
+    print(contador * 2)
+    contador += 1</pre>
+            <button class="run" type="button" data-demo="controle">Executar exemplo</button>
+            <pre class="saida eq" id="saida-controle"></pre>
+          </div>
+
+          <div class="topico" id="listas-tuplas">
+            <h3>4. Estruturas de dados: listas e tuplas</h3>
+            <p>
+              Listas e tuplas guardam vários valores em uma só variável. Listas podem mudar; tuplas não devem ser alteradas depois de criadas.
+            </p>
+            <pre class="eq">frutas = ["maçã", "banana", "laranja"]
+frutas.append("uva")
+frutas.insert(1, "abacaxi")
+frutas.remove("banana")
+
+print(frutas)
+print(frutas[0])
+print(frutas[-1])
+
+ponto = (5, 6)
+print(ponto[0])
+print(ponto[1])</pre>
+            <button class="run" type="button" data-demo="listas">Executar exemplo</button>
+            <pre class="saida eq" id="saida-listas"></pre>
+            <p class="dica">
+              Lembrete de prova: o método que adiciona um item ao final da lista é <code>append()</code>. <code>insert()</code> adiciona em uma posição escolhida.
+            </p>
+          </div>
+
+          <div class="topico" id="dicionarios">
+            <h3>4.2. Dicionários</h3>
+            <p>
+              Dicionário guarda pares de <strong>chave</strong> e <strong>valor</strong>. É ótimo quando você quer identificar cada informação por nome.
+            </p>
+            <pre class="eq">pessoa = {
+    "nome": "Ellen",
+    "idade": 23,
+    "cidade": "Belo Horizonte"
+}
+
+print(pessoa["nome"])
+print(pessoa.keys())
+print(pessoa.values())
+print(pessoa.items())
+
+pessoa.update({"profissao": "Desenvolvedora"})
+print(pessoa)</pre>
+            <button class="run" type="button" data-demo="dicionarios">Executar exemplo</button>
+            <pre class="saida eq" id="saida-dicionarios"></pre>
+          </div>
+
+          <div class="topico" id="conjuntos">
+            <h3>4.3. Conjuntos (set)</h3>
+            <p>
+              Conjunto é uma coleção sem ordem fixa e sem valores repetidos. Serve muito bem para remover duplicados e fazer operações como união e interseção.
+            </p>
+            <pre class="eq">conjunto1 = {1, 2, 3}
+conjunto2 = {3, 4, 5}
+
+print(conjunto1 | conjunto2)  # união
+print(conjunto1 &amp; conjunto2)  # interseção
+print(conjunto1 - conjunto2)  # diferença
+print(conjunto1 ^ conjunto2)  # diferença simétrica
+
+cores = {"vermelho", "azul"}
+cores.add("preto")
+cores.discard("verde")
+print(cores)</pre>
+            <button class="run" type="button" data-demo="conjuntos">Executar exemplo</button>
+            <pre class="saida eq" id="saida-conjuntos"></pre>
+          </div>
+        </section>
+
+        <section class="bloco modulo" id="modulo-2">
+          <h2>Módulo 2</h2>
+          <p>Funções, erros, entrada e saída, arquivos, módulos, módulos próprios e pacotes.</p>
+
+          <div class="topico" id="funcoes">
+            <h3>5. Funções</h3>
+            <p>
+              Função é um bloco de código reutilizável. Ela pode receber parâmetros, executar uma tarefa e devolver um resultado com <code>return</code>.
+            </p>
+            <pre class="eq">def saudacao(nome):
+    print(f"Olá, {nome}!")
+
+def soma(a, b):
+    return a + b
+
+quadrado = lambda x: x ** 2
+
+saudacao("Ellen")
+print(soma(5, 3))
+print(quadrado(4))</pre>
+            <button class="run" type="button" data-demo="funcoes">Executar exemplo</button>
+            <pre class="saida eq" id="saida-funcoes"></pre>
+          </div>
+
+          <div class="topico" id="erros">
+            <h3>6. Tratamento de erros e exceções</h3>
+            <p>
+              Uma exceção é um erro que acontece durante a execução. O bloco <code>try</code> guarda o código que pode falhar, <code>except</code> trata o erro, <code>else</code> roda se não houver erro e <code>finally</code> roda no final de qualquer jeito.
+            </p>
+            <pre class="eq">try:
+    resultado = 10 / 2
+except ZeroDivisionError:
+    print("Não é possível dividir por zero.")
+else:
+    print(f"Sucesso! Resultado: {resultado}")
+finally:
+    print("Finalizando processamento.")</pre>
+            <button class="run" type="button" data-demo="erros">Executar exemplo</button>
+            <pre class="saida eq" id="saida-erros"></pre>
+            <p class="dica">
+              Atenção para questões: em Python não usamos <code>catch</code>. Usamos <code>try</code> e <code>except</code>.
+            </p>
+          </div>
+
+          <div class="topico" id="excecoes-personalizadas">
+            <h3>6.2. Exceções personalizadas</h3>
+            <p>
+              Você pode criar ou disparar erros específicos quando uma regra do seu programa for quebrada. Para disparar uma exceção, use <code>raise</code>.
+            </p>
+            <pre class="eq">def validar_idade(idade):
+    if idade &lt; 0:
+        raise ValueError("Idade não pode ser negativa.")
+    return "Idade válida."
+
+try:
+    print(validar_idade(-1))
+except ValueError as erro:
+    print(f"Erro: {erro}")</pre>
+            <button class="run" type="button" data-demo="excecao-personalizada">Executar exemplo</button>
+            <pre class="saida eq" id="saida-excecao-personalizada"></pre>
+          </div>
+
+          <div class="topico" id="entradas-saidas">
+            <h3>7. Entradas/saídas</h3>
+            <p>
+              Entrada é informação recebida pelo programa, geralmente com <code>input()</code>. Saída é informação mostrada, geralmente com <code>print()</code>. O <code>input()</code> sempre retorna texto; para fazer contas, converta com <code>int()</code> ou <code>float()</code>.
+            </p>
+            <pre class="eq">nome = input("Insira seu nome: ").capitalize()
+idade = int(input("Insira sua idade: "))
+
+print(f"Olá, {nome}! Você tem {idade} anos.")
+
+if idade &gt;= 18:
+    print("Você é maior de idade.")
+else:
+    print("Você é menor de idade.")</pre>
+            <button class="run" type="button" data-demo="entrada">Executar exemplo com valores prontos</button>
+            <pre class="saida eq" id="saida-entrada"></pre>
+          </div>
+
+          <div class="topico" id="arquivos-escrita">
+            <h3>7.1. Leitura e escrita de arquivos</h3>
+            <p>
+              Arquivos permitem salvar dados fora do programa. Os modos mais comuns são <code>r</code> para ler, <code>w</code> para escrever apagando o conteúdo antigo e <code>a</code> para adicionar no final.
+            </p>
+            <pre class="eq">with open("dados.txt", "r", encoding="utf-8") as arquivo:
+    conteudo = arquivo.read()
+    print(conteudo)
+
+with open("dados.txt", "w", encoding="utf-8") as arquivo:
+    arquivo.write("Novo conteúdo")
+
+with open("dados.txt", "a", encoding="utf-8") as arquivo:
+    arquivo.write("\nMais uma linha")</pre>
+            <button class="run" type="button" data-demo="arquivos">Simular exemplo</button>
+            <pre class="saida eq" id="saida-arquivos"></pre>
+            <p class="dica">
+              Use <code>with open(...)</code> quando puder. Ele fecha o arquivo automaticamente no final do bloco.
+            </p>
+          </div>
+
+          <div class="topico" id="modulos">
+            <h3>8. Importação e criação de módulos</h3>
+            <p>
+              Módulo é um arquivo <code>.py</code> que pode ser importado em outro arquivo. Isso evita repetir código e deixa o projeto mais organizado.
+            </p>
+            <pre class="eq">import math
+print(math.sqrt(25))
+
+from math import sqrt
+print(sqrt(36))
+
+import random
+print(random.randint(1, 10))</pre>
+            <button class="run" type="button" data-demo="modulos">Executar exemplo</button>
+            <pre class="saida eq" id="saida-modulos"></pre>
+          </div>
+
+          <div class="topico" id="modulos-proprios">
+            <h3>8.1. Criação de módulos próprios</h3>
+            <p>
+              Para criar seu próprio módulo, crie um arquivo Python com funções, classes ou variáveis e importe esse arquivo em outro código.
+            </p>
+            <pre class="eq"># meu_modulo.py
+def saudar(nome):
+    print(f"Olá, {nome}!")
+
+def calcular_soma(a, b):
+    return a + b
+
+
+# outro_arquivo.py
+import meu_modulo
+
+meu_modulo.saudar("João")
+resultado = meu_modulo.calcular_soma(5, 3)
+print(resultado)</pre>
+            <button class="run" type="button" data-demo="modulo-proprio">Simular exemplo</button>
+            <pre class="saida eq" id="saida-modulo-proprio"></pre>
+          </div>
+
+          <div class="topico" id="pacotes">
+            <h3>8.2. Pacotes</h3>
+            <p>
+              Pacote é uma pasta que organiza vários módulos. Para Python reconhecer uma pasta como pacote, normalmente ela possui um arquivo especial chamado <code>__init__.py</code>.
+            </p>
+            <pre class="eq">meu_pacote/
+    __init__.py
+    modulo1.py
+    modulo2.py</pre>
+            <p>Depois, os módulos podem ser importados assim:</p>
+            <pre class="eq">from meu_pacote import modulo1, modulo2
+
+modulo1.funcao1()
+modulo2.funcao2()</pre>
+            <p class="resumo">
+              Módulos e pacotes ajudam a manter o código legível, estruturado e fácil de manter. Em projetos maiores, essa organização faz muita diferença.
+            </p>
+          </div>
+        </section>
+
+        <section class="bloco" id="laboratorio">
+          <h2>Laboratório de exemplos</h2>
+          <p>Escolha um exemplo e clique em executar. Esta área mostra a saída esperada sem mexer em nenhum arquivo da pasta.</p>
+          <div class="grade">
+            <div class="cartao">
+              <h3>Expressão lógica</h3>
+              <pre class="eq">(not True) or (False and True)</pre>
+              <button class="run" type="button" data-demo="logica">Executar exemplo</button>
+              <pre class="saida eq" id="saida-logica"></pre>
+            </div>
+            <div class="cartao">
+              <h3>Tabuada</h3>
+              <pre class="eq">for i in range(1, 11):
+    print(7, "x", i, "=", 7 * i)</pre>
+              <button class="run" type="button" data-demo="tabuada">Executar exemplo</button>
+              <pre class="saida eq" id="saida-tabuada"></pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="bloco" id="python-real">
+          <h2>Python real no navegador</h2>
+          <p>
+            Esta área usa Pyodide para executar Python dentro do navegador. Ela precisa de internet na primeira carga e não mexe nos arquivos do projeto.
+          </p>
+          <textarea class="eq" id="codigo-python">frutas = ["maçã", "banana"]
+frutas.append("uva")
+print(frutas)
+
+print((not True) or (False and True))</textarea>
+          <button class="run" type="button" id="executar-python">Executar Python</button>
+          <pre class="saida eq" id="saida-python-real">Clique em Executar Python para carregar o interpretador.</pre>
+          <p class="dica">
+            Se essa área não carregar, use a seção "Como rodar seus arquivos reais" no terminal. O navegador comum não consegue abrir seus arquivos Python diretamente sem um interpretador.
+          </p>
+        </section>
+
+        <section class="bloco" id="rodar-arquivos">
+          <h2>Como rodar seus arquivos reais</h2>
+          <p>
+            Esta página simula exemplos no navegador. Para rodar os arquivos Python de verdade, use o terminal na pasta do projeto.
+          </p>
+          <pre class="eq">cd "C:\Users\lucas\Desktop\Python - Ellen"
+.\.venv\Scripts\Activate.ps1
+
+python conceitosBasicosPython.py
+python listas.py
+python dicionario.py
+python conjuntos.py
+python funcoes.py
+python errosComunsPython.py
+python entradasSaidas.py
+python leituraEscritaArquivos.py
+python importacaoCriacaoModulos.py</pre>
+          <p>Para os arquivos Flask, instale as dependências e rode um arquivo por vez:</p>
+          <pre class="eq">pip install -r requirements.txt
+python tabuada.py
+python automacao.py
+python automacaoCriandoArquivoTxt.py</pre>
+          <p class="dica">
+            Depois de rodar um Flask, abra o endereço mostrado no terminal, geralmente <code>http://127.0.0.1:5000</code>.
+          </p>
+        </section>
+
+        <section class="bloco" id="cola">
+          <h2>Cola rápida</h2>
+          <div class="grade">
+            <div class="cartao">
+              <h3>Tipos básicos</h3>
+              <ul>
+                <li><code>int</code>: inteiro.</li>
+                <li><code>float</code>: decimal.</li>
+                <li><code>str</code>: texto.</li>
+                <li><code>bool</code>: <code>True</code> ou <code>False</code>.</li>
+              </ul>
+            </div>
+            <div class="cartao">
+              <h3>Listas</h3>
+              <ul>
+                <li><code>append()</code>: adiciona no final.</li>
+                <li><code>insert()</code>: adiciona em posição específica.</li>
+                <li><code>remove()</code>: remove pelo valor.</li>
+                <li><code>pop()</code>: remove por índice ou remove o último.</li>
+              </ul>
+            </div>
+            <div class="cartao">
+              <h3>Erros</h3>
+              <ul>
+                <li><code>try</code>: tenta executar.</li>
+                <li><code>except</code>: trata o erro.</li>
+                <li><code>else</code>: roda se não houver erro.</li>
+                <li><code>finally</code>: roda no final sempre.</li>
+                <li><code>raise</code>: dispara uma exceção.</li>
+              </ul>
+            </div>
+            <div class="cartao">
+              <h3>Arquivos</h3>
+              <ul>
+                <li><code>r</code>: leitura.</li>
+                <li><code>w</code>: escrita apagando o anterior.</li>
+                <li><code>a</code>: adiciona no final.</li>
+                <li><code>with open()</code>: abre e fecha automaticamente.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="bloco" id="arquivos">
+          <h2>Arquivos do projeto</h2>
+          <p>Referência dos arquivos que existem na pasta e qual assunto cada um cobre.</p>
+          <details>
+            <summary>conceitosBasicosPython.py</summary>
+            <p class="arquivo">Assuntos: primeiro programa, variáveis, tipos básicos, operadores aritméticos, comparação e lógica.</p>
+            <pre class="eq">python conceitosBasicosPython.py</pre>
+          </details>
+          <details>
+            <summary>listas.py</summary>
+            <p class="arquivo">Assuntos: listas, índices positivos e negativos, métodos de listas, compreensão de listas e tuplas.</p>
+            <pre class="eq">python listas.py</pre>
+          </details>
+          <details>
+            <summary>dicionario.py</summary>
+            <p class="arquivo">Assuntos: dicionários, chaves, valores, items e update.</p>
+            <pre class="eq">python dicionario.py</pre>
+          </details>
+          <details>
+            <summary>conjuntos.py</summary>
+            <p class="arquivo">Assuntos: set, união, interseção, diferença, diferença simétrica e métodos de conjuntos.</p>
+            <pre class="eq">python conjuntos.py</pre>
+          </details>
+          <details>
+            <summary>funcoes.py</summary>
+            <p class="arquivo">Assuntos: def, chamada de função, parâmetros, return e lambda.</p>
+            <pre class="eq">python funcoes.py</pre>
+          </details>
+          <details>
+            <summary>errosComunsPython.py</summary>
+            <p class="arquivo">Assuntos: SyntaxError, NameError, TypeError, IndexError, try, except, else, finally e raise.</p>
+            <pre class="eq">python errosComunsPython.py</pre>
+          </details>
+          <details>
+            <summary>entradasSaidas.py</summary>
+            <p class="arquivo">Assuntos: input, print, conversão com int e condição com idade.</p>
+            <pre class="eq">python entradasSaidas.py</pre>
+          </details>
+          <details>
+            <summary>leituraEscritaArquivos.py e dados.txt</summary>
+            <p class="arquivo">Assuntos: leitura, escrita, append, close e with open.</p>
+            <pre class="eq">python leituraEscritaArquivos.py</pre>
+          </details>
+          <details>
+            <summary>importacaoCriacaoModulos.py</summary>
+            <p class="arquivo">Assuntos: import, from import, math, random, datetime, módulos próprios e pacotes.</p>
+            <pre class="eq">python importacaoCriacaoModulos.py</pre>
+          </details>
+          <details>
+            <summary>Projetos Flask</summary>
+            <p class="arquivo">Arquivos: tabuada.py, automacao.py, automacaoCriandoArquivoTxt.py e requirements.txt.</p>
+            <pre class="eq">pip install -r requirements.txt
+python tabuada.py</pre>
+          </details>
+        </section>
+      </main>
+
+      <footer>
+        Material de estudo de
+        <a href="https://ellsouza.github.io/ellen-portfolio/" target="_blank" rel="noopener noreferrer">Ellen Souza</a>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+    <script>
+      const demos = {
+        primeiro: 'Olá, mundo!\nEstou aprendendo Python.',
+        variaveis: 'Ellen 23 1.65 True',
+        operadores: '9\n3\n18\n2.0\n2\n0\n216\nTrue\nTrue',
+        controle: 'Maior de idade\n1\n2\n3\n2\n4\n6',
+        listas: "['maçã', 'abacaxi', 'laranja', 'uva']\nmaçã\nuva\n5\n6",
+        dicionarios: "Ellen\ndict_keys(['nome', 'idade', 'cidade'])\ndict_values(['Ellen', 23, 'Belo Horizonte'])\ndict_items([('nome', 'Ellen'), ('idade', 23), ('cidade', 'Belo Horizonte')])\n{'nome': 'Ellen', 'idade': 23, 'cidade': 'Belo Horizonte', 'profissao': 'Desenvolvedora'}",
+        conjuntos: '{1, 2, 3, 4, 5}\n{3}\n{1, 2}\n{1, 2, 4, 5}\n{\'vermelho\', \'azul\', \'preto\'}',
+        funcoes: 'Olá, Ellen!\n8\n16',
+        erros: 'Sucesso! Resultado: 5.0\nFinalizando processamento.',
+        'excecao-personalizada': 'Erro: Idade não pode ser negativa.',
+        entrada: 'Insira seu nome: ellen\nInsira sua idade: 23\nOlá, Ellen! Você tem 23 anos.\nVocê é maior de idade.',
+        arquivos: 'Simulação do dados.txt:\nFui escrito com o modo de escrita ("w") do Python.\nFui escrito com o modo append ("a") do Python',
+        modulos: '5.0\n6.0\n7',
+        'modulo-proprio': 'Olá, João!\n8',
+        logica: 'False',
+        tabuada: '7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n7 x 10 = 70'
+      };
+
+      document.querySelectorAll('[data-demo]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const demo = button.dataset.demo;
+          const output = document.getElementById(`saida-${demo}`);
+          if (output) {
+            output.textContent = demos[demo] || 'Exemplo sem saída cadastrada.';
+          }
+        });
+      });
+
+      let pyodideReady = null;
+
+      async function carregarPyodide() {
+        if (!pyodideReady) {
+          const output = document.getElementById('saida-python-real');
+          output.textContent = 'Carregando Python no navegador...';
+          pyodideReady = loadPyodide();
+        }
+        return pyodideReady;
+      }
+
+      document.getElementById('executar-python').addEventListener('click', async () => {
+        const output = document.getElementById('saida-python-real');
+        const code = document.getElementById('codigo-python').value;
+
+        try {
+          const pyodide = await carregarPyodide();
+          pyodide.runPython(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+sys.stderr = StringIO()
+`);
+          await pyodide.runPythonAsync(code);
+          const result = pyodide.runPython('sys.stdout.getvalue() + sys.stderr.getvalue()');
+          output.textContent = result || 'Código executado sem saída.';
+        } catch (error) {
+          output.textContent = `Erro ao executar: ${error.message}`;
+        }
+      });
+    </script>
+  </body>
+</html>

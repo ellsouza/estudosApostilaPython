@@ -1,0 +1,7 @@
+﻿.venv/
+__pycache__/
+*.pyc
+arquivo_criado_pelo_python.txt
+arquivo_criado_pelo_python.pdf
+estudosApostilaPython.zip
+debug.log

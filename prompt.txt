@@ -1,0 +1,22 @@
+Quero transformar meus arquivos de estudo em Python em uma apostila HTML interativa e bem organizada.
+
+Contexto:
+Estou estudando Python em um curso dividido em módulos. Já tenho vários arquivos .py feitos por mim com exemplos dos assuntos estudados, como conceitos básicos, operadores, listas, tuplas, dicionários, conjuntos, funções, tratamento de erros, entrada e saída, leitura e escrita de arquivos, importação de módulos, criação de módulos próprios e pacotes.
+
+Objetivo:
+Criar um index.html que sirva como minha apostila pessoal de revisão, baseado nos meus próprios arquivos, sem alterar nenhum arquivo .py original.
+
+Requisitos:
+- Manter o CSS visual que já existe como base.
+- Organizar o conteúdo pelos módulos do curso.
+- Explicar cada conceito de forma clara para consulta futura.
+- Incluir exemplos de código em Python.
+- Criar uma seção de revisão rápida.
+- Criar uma seção mostrando como rodar meus arquivos Python pelo terminal.
+- Adicionar exemplos interativos ou simulações de saída quando possível.
+- Manter o material com autoria como “Material de estudo de Ellen Souza”.
+- Não modificar meus arquivos Python, apenas consultar o conteúdo deles.
+- Deixar o HTML útil para eu revisar sempre que esquecer algum conceito básico.
+
+Importante:
+Esse material deve ser construído a partir dos meus arquivos e evoluído aos poucos, conforme eu for adicionando novos conteúdos do curso.

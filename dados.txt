@@ -1,0 +1,2 @@
+Fui escrito com o modo de escrita ("w") do Python.
+Fui escrito com o modo append ("a") do Python
